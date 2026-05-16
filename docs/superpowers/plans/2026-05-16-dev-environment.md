@@ -1,4 +1,4 @@
-# 01_b — Dev Environment (uv + editable install) Implementation Plan
+# Dev Environment (uv + editable install) Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -118,7 +118,7 @@ Expected: installs `toolkitsy` in editable mode plus `pytest`, `pytest-cov`, `ru
 Run: `source .venv/bin/activate`
 Expected: shell prompt shows venv prefix; `which python` points inside `.venv/`.
 
-- [ ] **Step 4: Verify smoke tests from 01_a now pass**
+- [ ] **Step 4: Verify smoke tests from the `project-skeleton` plan now pass**
 
 Run: `pytest tests/test_package.py -v`
 Expected: PASS — both `test_package_exposes_version` and `test_version_is_semver_like`.

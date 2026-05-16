@@ -1,4 +1,4 @@
-# 01_a — Project Skeleton Implementation Plan
+# Project Skeleton Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -151,7 +151,7 @@ def test_version_is_semver_like():
 - [ ] **Step 2: Verify it fails (package not yet installed)**
 
 Run: `python -m pytest tests/test_package.py -v`
-Expected: FAIL with `ModuleNotFoundError: No module named 'toolkitsy'` (because we haven't installed it yet — that happens in 01_b).
+Expected: FAIL with `ModuleNotFoundError: No module named 'toolkitsy'` (because we haven't installed it yet — that happens in the `dev-environment` plan).
 
 - [ ] **Step 3: Commit**
 
@@ -165,5 +165,5 @@ git commit -m "test: add smoke tests for package import and version"
 ## Self-Review Notes
 
 - Spec coverage: skeleton ✓, version exposed ✓, pip-installable shape ✓.
-- Tests will pass only after the dev env in 01_b installs the package in editable mode.
+- Tests will pass only after the `dev-environment` plan installs the package in editable mode.
 - No placeholders, no TBDs.

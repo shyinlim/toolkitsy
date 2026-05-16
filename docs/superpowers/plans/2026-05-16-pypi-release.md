@@ -1,4 +1,4 @@
-# 01_e — PyPI Publish (Trusted Publishing) Implementation Plan
+# PyPI Publish (Trusted Publishing) Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -10,9 +10,9 @@
 
 ---
 
-## Prerequisite: Plans `01_a` → `01_d` are complete
+## Prerequisite: All earlier plans (project-skeleton, dev-environment, quality-and-ci, logger, repo-meta) are complete
 
-The repo must already have: working `pyproject.toml`, `src/toolkitsy/`, `_version.py = "0.0.1"`, CI green, tag `v0.0.1` pushed.
+The repo must already have: working `pyproject.toml`, `src/toolkitsy/`, `_version.py` bumped to `0.1.0`, `toolkitsy.logger` module shipped, CI green, tag `v0.1.0` pushed.
 
 ---
 
