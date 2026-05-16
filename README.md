@@ -1,6 +1,6 @@
 # toolkitsy
 
-Personal Python toolkit. A namespace package for cross-repo utilities — logger first, more modules to come (http client, database helpers, etc.).
+A shared Python toolkit library — one package, reused across multiple repos.
 
 ## Install
 

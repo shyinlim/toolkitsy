@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "toolkitsy"
 dynamic = ["version"]
-description = "Personal Python toolkit: logger, http client, database helpers, etc."
+description = "A shared Python toolkit library — one package, reused across multiple repos."
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.12"
