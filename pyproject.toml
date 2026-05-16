@@ -1,7 +1,83 @@
+[build-system]
+requires = ["hatchling>=1.24", "hatch-vcs>=0.4"]
+build-backend = "hatchling.build"
+
 [project]
 name = "toolkitsy"
-version = "0.1.0"
-description = "Add your description here"
+dynamic = ["version"]
+description = "Personal Python toolkit: logger, http client, database helpers, etc."
 readme = "README.md"
+license = { text = "MIT" }
 requires-python = ">=3.12"
+authors = [{ name = "shyinlim", email = "" }]
+keywords = ["toolkit", "logger", "utility"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
 dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.6",
+]
+
+[project.urls]
+Homepage = "https://github.com/shyinlim/toolkitsy"
+Repository = "https://github.com/shyinlim/toolkitsy"
+Issues = "https://github.com/shyinlim/toolkitsy/issues"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/toolkitsy/_version.py"
+
+[tool.hatch.version.raw-options]
+# Fallback used when no git tags exist yet. After `git tag v0.1.0`, the
+# version becomes 0.1.0 (or 0.1.0.dev<N>+g<sha> for untagged commits).
+fallback_version = "0.0.1"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/toolkitsy"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--cov=toolkitsy",
+    "--cov-report=term-missing",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "UP",     # pyupgrade
+    "SIM",    # flake8-simplify
+    "RUF",    # ruff-specific
+]
+ignore = []
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["B011"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
