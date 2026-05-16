@@ -1,0 +1,247 @@
+# 01_d — Repo Metadata (README, LICENSE, version policy) Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Replace the placeholder `README.md`, add an MIT `LICENSE`, document the version policy, and tag the first release `v0.0.1` so downstream consumers can pin against a stable ref.
+
+**Architecture:** Version policy = **manual semver bump in `src/toolkitsy/_version.py` + matching git tag**. No date+hash auto-versioning (the reference's approach is convenient but produces non-monotonic versions that break pip pinning). Tagging is the install contract.
+
+**Tech Stack:** Markdown, git tags.
+
+---
+
+## File Structure
+
+```
+toolkitsy/
+├── README.md                  # MODIFY: real project README
+├── LICENSE                    # NEW: MIT license
+└── docs/
+    └── versioning.md          # NEW: version policy doc
+```
+
+---
+
+### Task 1: Add MIT LICENSE
+
+**Files:**
+- Create: `LICENSE`
+
+- [ ] **Step 1: Create `LICENSE`**
+
+```
+MIT License
+
+Copyright (c) 2026 shyinlim
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+- [ ] **Step 2: Commit**
+
+```bash
+git add LICENSE
+git commit -m "docs: add MIT license"
+```
+
+---
+
+### Task 2: Rewrite README
+
+**Files:**
+- Modify: `README.md`
+
+- [ ] **Step 1: Replace README contents**
+
+```markdown
+# toolkitsy
+
+Personal Python toolkit. A namespace package for cross-repo utilities — logger first, more modules to come (http client, database helpers, etc.).
+
+## Install
+
+Direct from GitHub (no PyPI yet, no token needed since the repo is public):
+
+```bash
+pip install "toolkitsy @ git+https://github.com/shyinlim/toolkitsy.git"
+```
+
+Pin to a tag:
+
+```bash
+pip install "toolkitsy @ git+https://github.com/shyinlim/toolkitsy.git@v0.0.1"
+```
+
+With uv:
+
+```bash
+uv pip install "toolkitsy @ git+https://github.com/shyinlim/toolkitsy.git"
+```
+
+## Modules
+
+| Module             | Status   | Extras flag           |
+|--------------------|----------|-----------------------|
+| `toolkitsy.logger` | planned  | (none — stdlib only)  |
+
+Future modules will be opt-in via extras, e.g. `pip install "toolkitsy[db] @ git+..."`.
+
+## Version
+
+```python
+import toolkitsy
+print(toolkitsy.__version__)
+```
+
+Versioning policy: see [`docs/versioning.md`](docs/versioning.md).
+
+## Development
+
+```bash
+git clone git@github.com:shyinlim/toolkitsy.git
+cd toolkitsy
+uv venv
+uv pip install -e ".[dev]"
+uv run pytest
+uv run ruff check .
+```
+
+## License
+
+MIT — see [`LICENSE`](LICENSE).
+```
+
+- [ ] **Step 2: Commit**
+
+```bash
+git add README.md
+git commit -m "docs: rewrite README with install, modules, and dev sections"
+```
+
+---
+
+### Task 3: Document version policy
+
+**Files:**
+- Create: `docs/versioning.md`
+
+- [ ] **Step 1: Create dir and file**
+
+Run: `mkdir -p docs`
+
+Create `docs/versioning.md`:
+
+```markdown
+# Versioning Policy
+
+`toolkitsy` follows [semantic versioning](https://semver.org/): `MAJOR.MINOR.PATCH`.
+
+## Where the version lives
+
+The single source of truth is `src/toolkitsy/_version.py`:
+
+```python
+__version__ = "X.Y.Z"
+```
+
+The build backend (`hatchling`) reads this file at build time. The `pyproject.toml` declares `version` as `dynamic`, so there is no duplication.
+
+## Release procedure
+
+1. Bump `__version__` in `src/toolkitsy/_version.py`.
+2. Commit: `git commit -am "chore: release vX.Y.Z"`.
+3. Tag: `git tag -a vX.Y.Z -m "Release X.Y.Z"`.
+4. Push: `git push && git push --tags`.
+5. Downstream consumers can now pin with `@vX.Y.Z` in their install URL.
+
+## Why not date+git-hash auto-versioning?
+
+The reference project used `YYYY.MM.DD+<sha>` generated at build time. It is convenient but:
+
+- Pip cannot reliably pin against ephemeral build versions.
+- `1.0.0` < `2026.05.16+abc1234` in PEP 440 ordering, which surprises consumers.
+- Reproducible installs require lock files anyway — manual semver + tag is the cleaner contract.
+
+Local dev builds keep the value in `_version.py`; tagged commits become the public versions.
+```
+
+- [ ] **Step 2: Commit**
+
+```bash
+git add docs/versioning.md
+git commit -m "docs: document version policy and release procedure"
+```
+
+---
+
+### Task 4: Tag the first release
+
+- [ ] **Step 1: Verify version is 0.0.1**
+
+Run: `python -c "import toolkitsy; print(toolkitsy.__version__)"`
+Expected: `0.0.1`
+
+- [ ] **Step 2: Tag**
+
+```bash
+git tag -a v0.0.1 -m "Release 0.0.1 — package skeleton"
+```
+
+- [ ] **Step 3: Push commits and tag**
+
+```bash
+git push
+git push --tags
+```
+
+- [ ] **Step 4: Verify the tag is installable**
+
+In a separate temp directory:
+
+```bash
+cd /tmp
+uv venv toolkitsy-smoke
+source toolkitsy-smoke/bin/activate
+uv pip install "toolkitsy @ git+https://github.com/shyinlim/toolkitsy.git@v0.0.1"
+python -c "import toolkitsy; print(toolkitsy.__version__)"
+```
+
+Expected: prints `0.0.1`.
+
+- [ ] **Step 5: Cleanup smoke test venv**
+
+```bash
+deactivate
+rm -rf /tmp/toolkitsy-smoke
+```
+
+---
+
+## Self-Review Notes
+
+- Req #1 (GitHub import without token) verified at Task 4 Step 4.
+- Req #3 (version display) covered by `toolkitsy.__version__` + documented release procedure.
+- README documents the install path users will copy.
+- No placeholders.
+
+## What's next (out of scope for the package skeleton)
+
+- `02_*` series: implement `toolkitsy.logger` (its own design + plan).
+- Later: PyPI publish workflow (GitHub Actions `release.yml` triggered by tag).
+- Later: additional modules (`http`, `database`) added behind extras.
