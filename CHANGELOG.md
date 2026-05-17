@@ -5,6 +5,23 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.1.0 (2026-05-17)
+
+
+### Added
+
+* implement configurable logger with correlation IDs ([7fffd15](https://github.com/shyinlim/toolkitsy/commit/7fffd1552dde67a043601d01f49bd2c3ed02d14f))
+* implement configurable logger with correlation IDs ([4649dfc](https://github.com/shyinlim/toolkitsy/commit/4649dfc2547e8f21ae4a1026208a1a636ec152c7))
+* setup packaging backend, release automation, and CI pipelines ([2806fb3](https://github.com/shyinlim/toolkitsy/commit/2806fb3fd478d930b260055260337c0dd99282a6))
+* setup pre-commit hooks for ruff linting and formatting ([378bac2](https://github.com/shyinlim/toolkitsy/commit/378bac2c4016cc40b866b9e7d593288d3b88ca62))
+
+
+### Documentation
+
+* clarify library purpose in documentation ([517d7e3](https://github.com/shyinlim/toolkitsy/commit/517d7e3e7fa4e7185e413c9df6128264cb4c0a93))
+* create repository scaffolding and development planning files ([4be1bf0](https://github.com/shyinlim/toolkitsy/commit/4be1bf079201ebb07fd8f567ff87006e2162e30f))
+* scaffold superpowers specs/plans for logger work ([c14e1cd](https://github.com/shyinlim/toolkitsy/commit/c14e1cd1e5534bb89e18ff66d2bdd8d8d850a520))
+
 ## [Unreleased]
 
 ### Added
