@@ -8,12 +8,33 @@ from datetime import UTC, datetime
 
 from toolkitsy.logger._correlation_id import get_correlation_id
 
-_RESERVED_RECORD_ATTRS = frozenset({
-    "args", "asctime", "created", "exc_info", "exc_text", "filename",
-    "funcName", "levelname", "levelno", "lineno", "message", "module",
-    "msecs", "msg", "name", "pathname", "process", "processName",
-    "relativeCreated", "stack_info", "taskName", "thread", "threadName",
-})
+_RESERVED_RECORD_ATTRS = frozenset(
+    {
+        "args",
+        "asctime",
+        "created",
+        "exc_info",
+        "exc_text",
+        "filename",
+        "funcName",
+        "levelname",
+        "levelno",
+        "lineno",
+        "message",
+        "module",
+        "msecs",
+        "msg",
+        "name",
+        "pathname",
+        "process",
+        "processName",
+        "relativeCreated",
+        "stack_info",
+        "taskName",
+        "thread",
+        "threadName",
+    }
+)
 
 
 def _collect_extras(record: logging.LogRecord) -> dict[str, object]:
@@ -35,7 +56,7 @@ class TextFormatter(logging.Formatter):
     def __init__(self) -> None:
         super().__init__(
             fmt="%(asctime)s,%(msecs)03d | %(levelname)s | %(correlation_id)s | "
-                "%(filename)s:%(lineno)d | %(message)s",
+            "%(filename)s:%(lineno)d | %(message)s",
             datefmt="%Y-%m-%d %H:%M:%S",
         )
 

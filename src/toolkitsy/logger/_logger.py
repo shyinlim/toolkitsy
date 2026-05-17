@@ -18,9 +18,7 @@ def _resolve_level(explicit: str | None) -> int:
     raw = os.environ.get("LOG_LEVEL") or explicit or "INFO"
     raw = raw.upper()
     if raw not in _VALID_LEVELS:
-        raise ValueError(
-            f"Invalid log level {raw!r}; expected one of {sorted(_VALID_LEVELS)}"
-        )
+        raise ValueError(f"Invalid log level {raw!r}; expected one of {sorted(_VALID_LEVELS)}")
     return getattr(logging, raw)
 
 
@@ -66,9 +64,7 @@ def set_level(level: str, *, name: str | None = None) -> None:
     """Change the level of the root or a named logger at runtime."""
     raw = level.upper()
     if raw not in _VALID_LEVELS:
-        raise ValueError(
-            f"Invalid log level {raw!r}; expected one of {sorted(_VALID_LEVELS)}"
-        )
+        raise ValueError(f"Invalid log level {raw!r}; expected one of {sorted(_VALID_LEVELS)}")
     resolved = getattr(logging, raw)
     target = get_logger(name) if name else _get_root()
     target.setLevel(resolved)

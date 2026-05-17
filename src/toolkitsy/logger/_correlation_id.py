@@ -5,9 +5,7 @@ from __future__ import annotations
 import uuid
 from contextvars import ContextVar
 
-_correlation_id: ContextVar[str | None] = ContextVar(
-    "toolkitsy_correlation_id", default=None
-)
+_correlation_id: ContextVar[str | None] = ContextVar("toolkitsy_correlation_id", default=None)
 
 
 def set_correlation_id(value: str | None = None) -> str:
