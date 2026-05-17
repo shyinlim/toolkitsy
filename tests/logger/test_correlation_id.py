@@ -1,6 +1,5 @@
 import asyncio
 import re
-import uuid
 
 from toolkitsy.logger._correlation_id import (
     get_correlation_id,

@@ -90,7 +90,7 @@ def test_hourly_dir_handler_rotation_computes_new_path(tmp_path):
         original = Path(handler.baseFilename)
         handler.rolloverAt = handler.rolloverAt - 3600
         future = datetime.now() + timedelta(hours=1)
-        handler._now_for_test = future  # noqa: SLF001
+        handler._now_for_test = future
         handler.doRollover()
         new_path = Path(handler.baseFilename)
         assert new_path != original
