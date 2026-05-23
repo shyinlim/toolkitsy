@@ -5,6 +5,13 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0](https://github.com/shyinlim/toolkitsy/compare/v0.1.0...v0.2.0) (2026-05-23)
+
+
+### Added
+
+* streamline release pipeline by removing TestPyPI publication ([54d2ffb](https://github.com/shyinlim/toolkitsy/commit/54d2ffbee7cbdbf6fce92f9a624b8792075ca42a))
+
 ## 0.1.0 (2026-05-17)
 
 
